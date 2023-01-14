@@ -11,15 +11,6 @@ finish-args:
   - --socket=fallback-x11
   - --socket=pulseaudio
   - --filesystem=~/.d1x-rebirth
-cleanup:
-  - scons.1
-  - sconsign.1
-  - scons-time.1
-  - /bin/scons
-  - /bin/scons-configure-cache
-  - /bin/sconsign
-  - /lib/python3.10/site-packages/SCons
-  - /lib/python3.10/site-packages/SCons-4.4.0.dist-info
 modules:
   - python3-scons-4.4.0.yaml
   - shared-modules/glu/glu-9.json

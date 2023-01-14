@@ -4,6 +4,13 @@ buildsystem: simple
 build-commands:
   - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
     --prefix=${FLATPAK_DEST} "scons" --no-build-isolation
+cleanup:
+  # Remove all build tools after the build.
+  - scons.1
+  - sconsign.1
+  - scons-time.1
+  - /bin
+  - /lib
 sources:
   - type: file
     url: https://files.pythonhosted.org/packages/1a/e1/7fad50e1baa7068e3e2382b11c4d00190238798d62bfa6bbfa8619c19f39/SCons-4.4.0-py3-none-any.whl
