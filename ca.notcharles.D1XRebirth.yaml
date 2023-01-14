@@ -22,6 +22,36 @@ cleanup:
   - /lib/python3.10/site-packages/SCons-4.4.0.dist-info
 modules:
   - python3-scons-4.4.0.yaml
+  # fluidsynth adapted from https://github.com/flathub/org.scummvm.ScummVM/blob/master/org.scummvm.ScummVM.json
+  - name: fluidsynth
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DLIB_INSTALL_DIR=lib
+    sources:
+      - type: archive
+        url: https://github.com/FluidSynth/fluidsynth/archive/refs/tags/v2.3.1.tar.gz
+        sha256: d734e4cf488be763cf123e5976f3154f0094815093eecdf71e0e9ae148431883
+  - name: fluid_soundfont
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 FluidR3_GM.sf2 /app/share/soundfonts/FluidR3_GM.sf2
+    sources:
+      - type: archive
+        url: http://http.debian.net/debian/pool/main/f/fluid-soundfont/fluid-soundfont_3.1.orig.tar.gz
+        sha256: 2621acaa1c78e4abdb24bdd163230cc577e61276936d6aa6e3180582142f0343
+  - shared-modules/SDL2/SDL2-no-libdecor.json
+  - name: SDL2_mixer
+    buildsystem: autotools
+    sources:
+      - type: archive
+        url: https://github.com/libsdl-org/SDL_mixer/archive/refs/tags/release-2.6.2.tar.gz
+        sha256: 30c64e23506fcb1699981a297833407bf5bf9d8ab77390e26b26117b4a58bad5
+  - name: SDL2_image
+    buildsystem: autotools
+    sources:
+      - type: archive
+        url: https://github.com/libsdl-org/SDL_image/archive/refs/tags/release-2.6.2.tar.gz
+        sha256: 5d91ea72b449a161821ef51464d0767efb6fedf7a773f923c43e483dc137e362  
   - shared-modules/glu/glu-9.json
   - shared-modules/physfs/physfs.json
   - name: d1x-rebirth
