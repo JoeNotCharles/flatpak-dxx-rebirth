@@ -1,0 +1,38 @@
+app-id: ca.notcharles.D1XRebirth
+runtime: org.freedesktop.Platform
+runtime-version: '22.08'
+sdk: org.freedesktop.Sdk
+command: d1x-rebirth
+finish-args:
+  - --device=dri
+  - --share=network
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --socket=pulseaudio
+  - --filesystem=~/.d1x-rebirth
+cleanup:
+  - scons.1
+  - sconsign.1
+  - scons-time.1
+  - /bin/scons
+  - /bin/scons-configure-cache
+  - /bin/sconsign
+  - /lib/python3.10/site-packages/SCons
+  - /lib/python3.10/site-packages/SCons-4.4.0.dist-info
+modules:
+  - python3-scons-4.4.0.yaml
+  - shared-modules/glu/glu-9.json
+  - shared-modules/physfs/physfs.json
+  - name: d1x-rebirth
+    buildsystem: simple
+    build-commands:
+      - scons -j$(nproc) install sdl2=1 d1x=1 DESTDIR=/app prefix=/
+      - sed -i "s/Icon=d1x-rebirth/Icon=ca.notcharles.D1XRebirth/" d1x-rebirth/d1x-rebirth.desktop
+    post-install:
+      - install -D -m 644 d1x-rebirth/d1x-rebirth.png /app/share/icons/hicolor/128x128/apps/ca.notcharles.D1XRebirth.png
+      - install -D -m 644 d1x-rebirth/d1x-rebirth.desktop /app/share/applications/ca.notcharles.D1XRebirth.desktop
+    sources:
+      - type: git
+        url: https://github.com/JoeNotCharles/dxx-rebirth.git
+        branch: master
